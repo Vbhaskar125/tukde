@@ -1,4 +1,4 @@
-
+import java.util.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,16 +11,51 @@ import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
 
-
 class Main{
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException{
         solver sol=new solver();
         sol.run();
     }
 }
 
+class solver{
+    FastScanner in;
+    PrintWriter out;
+    public void solve() throws IOException {
+        // solution logic goes here
 
+
+
+
+
+    }
+
+    private void arrayInput(int size, int[] a) {
+        for (int i = 0; i <size ; i++) {
+            a[i]=in.nextInt();
+        }
+    }
+
+
+    public void runf(){
+        try {
+            in = new FastScanner(new File(".in"));
+            out = new PrintWriter(new File(".out"));
+            solve();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void run() throws IOException {
+        in = new FastScanner();
+        out = new PrintWriter(System.out);
+        solve();
+        out.close();
+    }
+}
 
 class FastScanner {
     BufferedReader br;
@@ -69,26 +104,3 @@ class FastScanner {
     }
 }
 
-class solver{
-    FastScanner in;
-    PrintWriter out;
-    public void solve() throws IOException {
-    }
-    public void runf(){
-        try {
-            in = new FastScanner(new File(".in"));
-            out = new PrintWriter(new File(".out"));
-            solve();
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void run() throws IOException {
-        in = new FastScanner();
-        out = new PrintWriter(System.out);
-        solve();
-        out.close();
-    }
-}
