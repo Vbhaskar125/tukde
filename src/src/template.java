@@ -25,7 +25,13 @@ class solver{
     public void solve() throws IOException {
         // solution logic goes here
 
-
+        int size=in.nextInt();
+        int[] a=new int[size];
+        int[] index=new int[size];
+        arrayInput(size, a);
+        for (int i = 0; i <size ; i++) {
+            index[i]=i;
+        }
 
 
 
