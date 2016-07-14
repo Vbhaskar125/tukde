@@ -1,4 +1,4 @@
-package dp;
+
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -27,11 +27,12 @@ class Dollars{
 class solver{
     FastScanner in;
     PrintWriter out;
+    final int maxvalue=7489;
     public void solve() throws IOException {
   
-        double[] denominations={0.05,0.1,0.2,0.5,1,2,5,10,20,50,100};
-        // maximum input amount is equal to 300
-       int[][] dp=new int[denominations.length][6001];
+        double[] denominations={1,5,10,25,50};//denominations in increasing order
+
+       int[][] dp=new int[denominations.length][maxvalue+1];
         dpinit(denominations, dp);
         dpfill(denominations, dp);
         outResult(denominations, dp);
@@ -42,22 +43,22 @@ class solver{
 		double reading=in.nextDouble();
         String result="";
         while(0.00 != reading){
-           result+=reading +"      "+dp[denominations.length-1][(int)(reading/0.05)] +"\n";
+         out.print(dp[denominations.length-1][(int)(reading/denominations[0])]);out.print("\n");
            
             reading=in.nextDouble();
         }
-        out.print(result);
+
 	}
 
 	private void dpfill(double[] denominations, int[][] dp) {
 		for (int i = 0; i <denominations.length ; i++) {
-            for (int j = 0; j <6001 ; j++) {
+            for (int j = 0; j <maxvalue+1 ; j++) {
                 if(i==0 || j==0){
                 	dp[i][j]=1;
                 }
                 
                 if(i!=0 && j!=0){
-                	int diff=(int)(denominations[i]/.05);
+                	int diff=(int)(denominations[i]/denominations[0]);
                 	
                 	if(j<diff){
                 		dp[i][j]=dp[i-1][j];
@@ -74,7 +75,7 @@ class solver{
 
     private void dpinit(double[] denominations, int[][] dp) {
         for (int i = 0; i < denominations.length ; i++) {
-            for (int j = 0; j <6001; j++) {
+            for (int j = 0; j <maxvalue+1; j++) {
                 dp[i][j]=0;
             }
         }
