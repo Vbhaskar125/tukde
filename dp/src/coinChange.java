@@ -15,7 +15,11 @@ import java.io.PrintWriter;
 import java.util.StringTokenizer;
 import java.math.BigDecimal;
 
-
+/*
+* https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=83
+*
+* https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=615
+* */
 class Dollars{
 
     public static void main(String[] args) throws IOException{
