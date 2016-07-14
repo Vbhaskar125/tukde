@@ -1,3 +1,5 @@
+package dp;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -14,7 +16,7 @@ import java.util.StringTokenizer;
 import java.math.BigDecimal;
 
 
-class Dollar{
+class Dollars{
 
     public static void main(String[] args) throws IOException{
         solver sol=new solver();
@@ -26,56 +28,48 @@ class solver{
     FastScanner in;
     PrintWriter out;
     public void solve() throws IOException {
-        // solution logic goes here
-
-
+  
         double[] denominations={0.05,0.1,0.2,0.5,1,2,5,10,20,50,100};
        int[][] dp=new int[denominations.length][6001];
         dpinit(denominations, dp);
+        dpfill(denominations, dp);
+        outResult(denominations, dp);
+  
+    }
 
-        for (int i = 0; i <denominations.length ; i++) {
-            for (int j = 0; j <6001 ; j++) {
-                if(j==0){
-                    dp[i][j]=1;
-                }
-                if(i==0 ){
-                    dp[i][j]=1;
-                }
-
-                if(i !=0 && j !=0){
-                   double value= (j)*0.05;
-
-                    BigDecimal bd = new BigDecimal(value);
-                    bd = bd.setScale(3, RoundingMode.HALF_UP);
-                    value=bd.doubleValue();
-                    double den=denominations[i];
-                    if(den>value){
-                        dp[i][j]=dp[i-1][j];
-                    }else if (den<=value) {
-                     if(value==den){
-                         dp[i][j] = dp[i - 1][j] +1;
-                     }else {
-
-                         dp[i][j] = dp[i - 1][j] + dp[i][(int) ((value - den) / 0.05)];
-                     }
-                     }
-
-                }
-            }
-        }
-
-        double reading=in.nextDouble();
+	private void outResult(double[] denominations, int[][] dp) {
+		double reading=in.nextDouble();
         String result="";
         while(0.00 != reading){
-           result+=reading +"      "+dp[denominations.length-1][(int)(reading/0.05)-1] +"\n";
-
-
-
+           result+=reading +"      "+dp[denominations.length-1][(int)(reading/0.05)] +"\n";
+           
             reading=in.nextDouble();
         }
         out.print(result);
+	}
 
-    }
+	private void dpfill(double[] denominations, int[][] dp) {
+		for (int i = 0; i <denominations.length ; i++) {
+            for (int j = 0; j <6001 ; j++) {
+                if(i==0 || j==0){
+                	dp[i][j]=1;
+                }
+                
+                if(i!=0 && j!=0){
+                	int diff=(int)(denominations[i]/.05);
+                	
+                	if(j<diff){
+                		dp[i][j]=dp[i-1][j];
+                	}else if(j>=diff){
+                		 
+                		 dp[i][j]=dp[i-1][j]+dp[i][j-diff];
+                		  }
+                	
+                }
+                
+            }
+        }
+	}
 
     private void dpinit(double[] denominations, int[][] dp) {
         for (int i = 0; i < denominations.length ; i++) {
@@ -104,6 +98,7 @@ class solver{
         out.close();
     }
 }
+
 
 class FastScanner {
     BufferedReader br;
@@ -151,4 +146,3 @@ class FastScanner {
         return str;
     }
 }
-
