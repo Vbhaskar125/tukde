@@ -30,6 +30,7 @@ class solver{
     public void solve() throws IOException {
   
         double[] denominations={0.05,0.1,0.2,0.5,1,2,5,10,20,50,100};
+        // maximum input amount is equal to 300
        int[][] dp=new int[denominations.length][6001];
         dpinit(denominations, dp);
         dpfill(denominations, dp);
